@@ -95,17 +95,16 @@ var BaseRepo = /** @class */ (function () {
     };
     BaseRepo.prototype.findByTypeId = function (id) {
         var _this = this;
-        console.log("Type ID: " + id);
         return new Promise(function (resolve, reject) {
-            var typeId;
+            /*var typeId;
             try {
                 typeId = new mongodb_1.ObjectId(id);
             }
             catch (e) {
                 return reject(new Error("invalid id"));
-            }
+            }*/
             (0, MongoConnection_1.ConnectToMongo)().then(function (d) {
-                return d.db.collection(_this.collectionName).findOne({ typeId: typeId }, function (err, result) {
+                return d.db.collection(_this.collectionName).findOne({ typeId: id }, function (err, result) {
                     if (err)
                         return reject(err);
                     resolve(result);

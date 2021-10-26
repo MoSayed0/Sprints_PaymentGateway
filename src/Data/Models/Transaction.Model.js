@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Transaction = void 0;
 var Transaction = /** @class */ (function () {
     function Transaction(merchant_id, customerCardHolderName, customerCardNumber, customerExpireDate, customerCVV, billAmount, trxFees, // default fees 2%
