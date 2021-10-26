@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.BaseRepo = void 0;
 var mongodb_1 = require("mongodb");
 var MongoConnection_1 = require("../../Core/Database/MongoConnection");
@@ -33,7 +33,7 @@ var BaseRepo = /** @class */ (function () {
             });
         });
     };
-    BaseRepo.prototype.delete = function (id) {
+    BaseRepo.prototype["delete"] = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var _id;
@@ -85,6 +85,27 @@ var BaseRepo = /** @class */ (function () {
             }
             (0, MongoConnection_1.ConnectToMongo)().then(function (d) {
                 return d.db.collection(_this.collectionName).findOne({ _id: _id }, function (err, result) {
+                    if (err)
+                        return reject(err);
+                    resolve(result);
+                    d.mongoClient.close();
+                });
+            });
+        });
+    };
+    BaseRepo.prototype.findByTypeId = function (id) {
+        var _this = this;
+        console.log("Type ID: " + id);
+        return new Promise(function (resolve, reject) {
+            var typeId;
+            try {
+                typeId = new mongodb_1.ObjectId(id);
+            }
+            catch (e) {
+                return reject(new Error("invalid id"));
+            }
+            (0, MongoConnection_1.ConnectToMongo)().then(function (d) {
+                return d.db.collection(_this.collectionName).findOne({ typeId: typeId }, function (err, result) {
                     if (err)
                         return reject(err);
                     resolve(result);

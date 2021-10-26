@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.ServiceService = void 0;
 var ServiceRepository_1 = require("../Data/Repositories/ServiceRepository");
 var Service_Model_1 = require("../Data/Models/Service.Model");
@@ -81,6 +81,9 @@ var ServiceService = /** @class */ (function () {
                 }
             });
         });
+    };
+    ServiceService.prototype.findByTypeId = function (id) {
+        return serviceRepo.findByTypeId(id);
     };
     return ServiceService;
 }());

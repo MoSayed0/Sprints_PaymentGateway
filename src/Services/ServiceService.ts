@@ -1,5 +1,6 @@
 import { ServiceRepository } from "../Data/Repositories/ServiceRepository";
 import { Service } from "../Data/Models/Service.Model";
+import { Db } from "mongodb";
 //import { IntegerType } from "mongodb";
 //import { Timestamp } from "bson";
 
@@ -34,5 +35,9 @@ export class ServiceService {
     if (service) return service;
 
     throw new Error("missing or invalid Id");
+  }
+  
+  findByTypeId(id: string): Promise<Service> {
+    return serviceRepo.findByTypeId(id);
   }
 }

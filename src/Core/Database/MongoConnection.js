@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.ConnectToMongo = void 0;
 var mongodb_1 = require("mongodb");
 var url = "mongodb://localhost:27017/";

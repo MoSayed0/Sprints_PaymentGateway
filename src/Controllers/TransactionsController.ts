@@ -21,7 +21,8 @@ export async function AllTransaction(req: Request, res: Response) {
  * @constructor
  */
 export async function CreateTransaction(req: Request, res: Response) {
-  const results:any = await Service.findById(req.body.serviceId);  
+  console.log(req.body.serviceId);
+  const results:any = await Service.findByTypeId(req.body.serviceId);  
   if(results == null){    
       res.json({message: "invalid service ID or merchant ID !!"});
   }

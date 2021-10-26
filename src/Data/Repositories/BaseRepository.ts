@@ -82,6 +82,28 @@ export abstract class BaseRepo<Model> {
                     d.mongoClient.close();
                 })
             })
-        });
+        });      
     }
+
+    findByTypeId(id: string): Promise<Model> {
+        console.log("Type ID: "+ id)
+        return new Promise((resolve, reject) => {
+            let typeId: ObjectId;
+            try {
+                typeId = new ObjectId(id)
+            } catch (e) {
+                return reject(new Error("invalid id"));
+            }
+            ConnectToMongo().then((d) => {
+                return d.db.collection(this.collectionName).findOne({typeId}, function (err, result) {
+                    if (err) return reject(err);
+                    resolve(result as Model);
+                    d.mongoClient.close();
+                })
+            })
+        });      
+    }
+        
+    
+    
 }
