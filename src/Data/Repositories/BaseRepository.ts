@@ -87,14 +87,19 @@ export abstract class BaseRepo<Model> {
 
     findByTypeId(id: string): Promise<Model> {
         return new Promise((resolve, reject) => {
-           /* let typeId: ObjectId;
-            try {
-                typeId = new ObjectId(id)
-            } catch (e) {
-                return reject(new Error("invalid id"));
-            }*/
             ConnectToMongo().then((d) => {
                 return d.db.collection(this.collectionName).findOne({typeId:id}, function (err, result) {
+                    if (err) return reject(err);
+                    resolve(result as Model);
+                    d.mongoClient.close();
+                })
+            })
+        });      
+    }
+    findByMerchantId(id: string): Promise<Model> {
+        return new Promise((resolve, reject) => {
+            ConnectToMongo().then((d) => {
+                return d.db.collection(this.collectionName).findOne({merchantId:id}, function (err, result) {
                     if (err) return reject(err);
                     resolve(result as Model);
                     d.mongoClient.close();

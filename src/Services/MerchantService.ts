@@ -1,5 +1,4 @@
 import { MerchantRepository } from "../Data/Repositories/MerchantRepository";
-import { TransactionRepository } from "../Data/Repositories/TransactionRepository";
 import { Merchant } from "../Data/Models/Merchant.Model";
 import { IntegerType } from "mongodb";
 //import { Timestamp } from "bson";
@@ -45,5 +44,8 @@ export class MerchantService {
     if (merchant) return merchant;
 
     throw new Error("missing or invalid Id");
+  }
+  findByMerchantId(id: string): Promise<Merchant> {
+    return merchantRepo.findByMerchantId(id);
   }
 }

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ServiceService } from "../Services/ServiceService";
+import { ServiceTypesService } from "../Services/ServiceTypesService";
 
-const serviceService = new ServiceService();
+const serviceService = new ServiceTypesService();
 
 /**
  *

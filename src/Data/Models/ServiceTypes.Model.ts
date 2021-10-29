@@ -1,6 +1,6 @@
 import { IntegerType } from "mongodb";
 
-export class Service {
+export class ServiceTypes {
   _id?: string;
   typeId: string;
   name: string;
