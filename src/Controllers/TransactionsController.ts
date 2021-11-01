@@ -1,3 +1,4 @@
+import { Timestamp } from "bson";
 import e, { Request, response, Response } from "express";
 import { TransactionService } from "../Services/TransactionService";
 import { ServiceTypesService } from "../Services/ServiceTypesService";
@@ -8,6 +9,8 @@ import axios from "axios";
 const transactionService = new TransactionService();
 const Service  = new ServiceTypesService();
 const Merchant = new MerchantService();
+var MongoDB = require('mongoDB');
+
 
 /**
  *
@@ -40,18 +43,19 @@ export async function CreateTransaction(req: Request, res: Response) {
   if(validService && validMerchant){
     var feesAmt = Number.parseInt(serviceTypesRes.feesAmount);
     var totAmt  = Number.parseInt(req.body.billAmount) + feesAmt;
-    var merchantName = merchantIdRes.merchantName;
+    var merchantName = merchantIdRes.name;
     var transStatus  = false;
-
+    //console.log(merchantIdRes);
     try {
       const transactionData = {
         'cardid': req.body.customerCardNumber,
         'ccv':req.body.customerCVV, 
         'amount':totAmt,
         'merchant':merchantName,
-        'timestamp':'13/10/2021', 
+        'timestamp':'', 
         'Payment_gateway_ID':100
       };
+      //console.log('data sent to bank aPI:' ,transactionData);
       const headers = {
         'Username': 'gateway100',
         'Password': 'Sprints'
@@ -79,11 +83,11 @@ export async function CreateTransaction(req: Request, res: Response) {
       let customerCVV = req.body.customerCVV;
       let serviceId = req.body.serviceId;
       let billAmount = req.body.billAmount;
-      let trxFees = feesAmt; //req.body.trxFees;
-      let totAmount = totAmt; //req.body.totAmount;
-      let date = req.body.date;
+      let trxFees = feesAmt; 
+      let totAmount = totAmt;
+      let date = new MongoDB.Timestamp(0, Math.floor(new Date().getTime() / 1000));
       let trx_status = transStatus.toString();
-            
+      
       let transaction =  await transactionService.create({
         merchant_id,
         customerCardHolderName,
